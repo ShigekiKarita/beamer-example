@@ -1,15 +1,16 @@
-\documentclass{beamer}
-
+\documentclass[dvipdfmx,11pt,notheorems]{beamer}
+%%%% 和文用 %%%%%
+\usepackage{bxdpx-beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{default}
 
-%%%% スライドの見た目 %%%%%
-\usetheme{boxes}
+% \usetheme{CambridgeUS}
+% \usetheme{boxes}
 \usecolortheme{whale}
 \usefonttheme{structurebold}
 
 \title[A video forgery detection algorithm based on compressive sensing]{A video forgery detection algorithm based on compressive sensing}
-\author[名前]{苅田　成樹}
+\author[苅田 成樹]{苅田 成樹}
 \institute[JPN]{M2}
 \date{2015.09.28}
 
@@ -20,7 +21,14 @@
 \include{text/sec1_intro}
 \include{text/sec2_preliminaries}
 \include{text/sec3_proposed}
-\include{text/sec4_expriment}
+\include{text/sec4_experiment}
 \include{text/sec5_conclusion}
+
+\section*{references}
+\begin{frame}[allowframebreaks]{References}
+    \scriptsize
+    \bibliographystyle{plain}
+    \bibliography{ref}
+\end{frame}
 
 \end{document}
