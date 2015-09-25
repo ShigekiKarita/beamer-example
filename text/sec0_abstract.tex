@@ -1,0 +1,39 @@
+\begin{frame}\frametitle{私が選んだ理由}
+\begin{itemize}
+    \item 教師なしっぽい
+    \item 簡単そうで結果が良かった
+\end{itemize}
+
+他の候補
+\begin{itemize}
+    \item Perceptual ~
+    \item Chen
+    \item etc
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Overview}
+\begin{enumerate}
+    \item イントロ : 問題設定や手法の比較
+    \item K-SVD を用いた compressive sensing と形態学的(morphological)な画像処理
+    \item 提案する検出手法
+    \item 実験結果と議論
+    \item まとめ
+\end{enumerate}
+\end{frame}
+
+\section{Abstract}
+\begin{frame}\frametitle{Abstract}
+論文の要点
+\begin{itemize}
+    \item 動画編集による前景領域の物体消去を検出したい
+    \item compressive sensing に基づくアルゴリズムを提案
+    \begin{enumerate}
+        \item フレーム間の変動を K-SVD (Singular Value Decomposition) により特徴抽出
+        \item K-Means により特徴量を低次元に量子化
+        \item 検出結果を出力
+    \end{enumerate}
+    \item 既存手法よりロバストかつ高精度な検出を実現
+\end{itemize}
+\end{frame}

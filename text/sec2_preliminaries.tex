@@ -1,0 +1,48 @@
+\section{Preliminaries}
+\begin{frame}\frametitle{Compressed Sensing}
+Candes \& Donoho らが提案する信号や画像を低次元に再構築する手法
+\begin{equation}
+    f = \Phi x (\Phi: N \times N, x: N \times 1)
+\end{equation}
+$x$ 中で $K$ 個の係数しか大きな値を取らないとき，$x$ を $f$ の $K$ 疎表現と呼ぶ．
+\begin{eqnarray}
+    y & = & \Omega f = \Theta x (\Omega: M \times N, y: M \times 1) \\
+    \Theta & = & \Omega \Phi
+\end{eqnarray}
+上記の低次元空間への射影 $\Theta$ を sensing matrix と呼ぶ．
+$\Theta$ は Ristricted Isometry Property
+\begin{eqnarray}
+    (1 - \delta_k) ||c||^2_2 & \leq & || \Theta_c ||^2_2 \leq (1 + \delta_k) ||c||^2_2 \\
+    0 & < & \delta_k < 1
+\end{eqnarray}
+を満たすとする，ただし $c$ はランダムな $K$ 疎ベクトルである．
+最適な疎表現 $x$ はL0最適化だが，NP完全問題なのでL1ノルム最適化
+\begin{equation}
+    \arg \min ||x||_1 s.t. y = \Theta x
+\end{equation}
+として近似して解く。
+L1ノルム最適化アルゴリズムとしては以下が知られる
+\begin{itemize}
+    \item 貪欲法 :
+        Match Pursuit (MP),
+        Orthogonal MP (OMP)
+    \item 凸緩和最適化 :
+        Gradient Projection for Sparse Reconstruction (GPSR),
+        Total Variation (TV),
+        Smoothed-L0 (SL0)
+    \item 組み合わせ最適化 : Iwen の手法
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{K-SVD}
+訓練データセット $\{ x \}$ から疎な辞書モデルを構築できるアルゴリズム．
+最適化問題としての定式化は以下
+\begin{eqnarray}
+    \min \{||x||_0\} &s.t.& \min ||Y-DX||^2_F \leq \varepsilon (i = 1, \dots, N) \\
+    ||Y-DX||^2_F &=& ||Y - \sum D_k x_k||^2_F \\
+    &=& ||(Y - \sum_{k \neq j} d_k x_k) - d_j x_j||^2_F \\
+    &=& ||E_j - d_j x_j||^2_F
+\end{eqnarray}
+ただし $F$ はフロベニスノルム $||A||_F = \sqrt{\sum{A^2_{i,j}}}$
+\end{frame}
