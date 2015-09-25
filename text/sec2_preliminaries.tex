@@ -1,4 +1,6 @@
 \section{Preliminaries}
+
+
 \begin{frame}\frametitle{Compressed Sensing 1/2}
 Candes \& Donoho による信号や画像の低次元表現の枠組み
 \begin{equation}
@@ -39,14 +41,35 @@ $\Theta$ は Ristricted Isometry Property
 \end{frame}
 
 
-\begin{frame}\frametitle{K-SVD}
-訓練データセット $\{ x \}$ から疎な辞書(= sensing matrix)を構築できるアルゴリズム．
+\begin{frame}\frametitle{K-SVD の定式化}
+訓練データセット $\{ x \}$ から疎な辞書 $D$ (= sensing matrix)を構築できるアルゴリズム．
 最適化問題としての定式化は以下
 \begin{eqnarray}
-    \min \{||x||_0\} &s.t.& \min ||Y-DX||^2_F \leq \varepsilon (i = 1, \dots, N) \\
+    \min \{||x||_0\} &s.t.& \min ||Y-DX||^2_F \leq \varepsilon \; (i = 1, \dots, N) \\
     ||Y-DX||^2_F &=& ||Y - \sum D_k x_k||^2_F \\
     &=& ||(Y - \sum_{k \neq j} d_k x_k) - d_j x_j||^2_F \\
     &=& ||E_j - d_j x_j||^2_F
 \end{eqnarray}
 ただし $F$ はフロベニスノルム $||A||_F = \sqrt{\sum{A^2_{i,j}}}$
+\end{frame}
+
+
+\begin{frame}\frametitle{K-SVD + OMP 更新アルゴリズム}
+\end{frame}
+
+
+\begin{frame}\frametitle{Morphological image processing}
+特徴量抽出の前・後処理によく用いられる．とくに以下を用いた．
+
+\begin{block}{Dilation}
+\begin{equation}
+    A \oplus B = \left\{z | \left[(\hat{B})_z \bigcap A \right] \subseteq A \right\}
+\end{equation}
+\end{block}
+
+\begin{block}{Erosion}
+\begin{equation}
+    A \Theta B = \left\{z | (\hat{B})_Z \subseteq A \right\}
+\end{equation}
+\end{block}
 \end{frame}
