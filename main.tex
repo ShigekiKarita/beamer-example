@@ -1,18 +1,19 @@
 \documentclass[dvipdfmx,11pt,notheorems]{beamer}
-%%%% 和文用 %%%%%
 \usepackage{bxdpx-beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{default}
+\usepackage{biblatex}
+\addbibresource{ref.bib}
+\usetheme{Berlin}
+% \usecolortheme{seagull}
+% \usefonttheme{structurebold}
+\setbeamerfont{footnote}{size=\tiny}
 
-% \usetheme{CambridgeUS}
-% \usetheme{boxes}
-\usecolortheme{whale}
-\usefonttheme{structurebold}
-
-\title[A video forgery detection algorithm based on compressive sensing]{A video forgery detection algorithm based on compressive sensing}
-\author[苅田 成樹]{苅田 成樹}
-\institute[JPN]{M2}
+\title[L. Su et al (2015), A video forgery detection algorithm based on compressive sensing]{A video forgery detection algorithm based on compressive sensing}
+\author[Shigeki Karita]{苅田 成樹}
+\institute[M2]{M2}
 \date{2015.09.28}
+
 
 \begin{document}
 
@@ -26,9 +27,9 @@
 
 \section*{references}
 \begin{frame}[allowframebreaks]{References}
-    \scriptsize
-    \bibliographystyle{plain}
-    \bibliography{ref}
+%     \scriptsize
+%     \bibliographystyle{plain}
+    \printbibliography
 \end{frame}
 
 \end{document}
