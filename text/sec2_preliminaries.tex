@@ -1,7 +1,7 @@
 \section{Preliminaries}
 
 
-\begin{frame}\frametitle{Compressed Sensing 1/2}
+\begin{frame}\frametitle{Compressive Sensing 1/2}
 Candes \& Donoho による信号や画像の低次元表現の枠組み
 \begin{equation}
     f = \Phi x \; (\Phi: N \times N, x: N \times 1)
@@ -21,7 +21,7 @@ $\Theta$ は Ristricted Isometry Property
 \end{frame}
 
 
-\begin{frame}\frametitle{Compressed Sensing 2/2}
+\begin{frame}\frametitle{Compressive Sensing 2/2}
 最適な疎表現 $x$ の導出は$L_0$最適化問題だが NP 困難なので，次の $L_1$ ノルム最適化に近似
 \begin{equation}
     \arg\min ||x||_1 \; s.t. \; y = \Theta x
@@ -50,7 +50,7 @@ $\Theta$ は Ristricted Isometry Property
     &=& ||(Y - \sum_{k \neq j} d_k x_k) - d_j x_j||^2_F \\
     &=& ||E_j - d_j x_j||^2_F
 \end{eqnarray}
-ただし $F$ はフロベニスノルム $||A||_F = \sqrt{\sum{A^2_{i,j}}}$
+ただし$||\cdot||_F$ はフロベニスノルム $||A||_F = \sqrt{\sum{A^2_{i,j}}}$
 \end{frame}
 
 
@@ -59,17 +59,16 @@ $\Theta$ は Ristricted Isometry Property
 
 
 \begin{frame}\frametitle{Morphological image processing}
-特徴量抽出の前・後処理によく用いられる．とくに以下を用いた．
-
-\begin{block}{Dilation}
-\begin{equation}
-    A \oplus B = \left\{z | \left[(\hat{B})_z \bigcap A \right] \subseteq A \right\}
-\end{equation}
+\begin{block}{Morphology}
+特徴量抽出の前・後処理によく用いられる．主に以下の2種類
+\begin{itemize}
+    \item Dilation - 孤立点の除去
+    \item Erosion - 欠落点の穴埋め
+\end{itemize}
 \end{block}
 
-\begin{block}{Erosion}
-\begin{equation}
-    A \Theta B = \left\{z | (\hat{B})_Z \subseteq A \right\}
-\end{equation}
-\end{block}
+イメージ図\footnote
+{\url{http://jp.mathworks.com/help/images/morphology-fundamentals-dilation-and-erosion.html}}
+：実際は円状の構造要素(図中灰色)を利用
+\includegraphics[scale=0.4]{figure/morph.png}
 \end{frame}

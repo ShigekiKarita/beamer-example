@@ -1,0 +1,17 @@
+# tools
+LATEX = uplatex -shell-escape  --kanji=utf8 -no-guess-input-enc -synctex=1
+LATEXFLAGS = -interaction=nonstopmode
+BIBER = biber --bblencoding=utf8 -u -U --output_safechars
+BIBTEX = upbibtex  --kanji=utf8
+DVIPDFM = dvipdfmx
+EBB = ebb
+GLOB_OPTIONS = i
+
+# output
+LaTeXDocument(main, main)
+
+.DEFAULT: main.pdf
+
+.PHONY: clean
+clean:
+    rm $(glob *.toc *.log *.dvi *.fls *.aux *.maf *.mtc *.bbl *.blg *.ind *.idx *.ilg *.out *.omc)
