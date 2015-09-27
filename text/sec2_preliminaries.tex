@@ -1,7 +1,7 @@
 \section{Preliminaries}
 
 \begin{frame}\frametitle{Compressive Sensing 1/3}
-Candes \& Donoho による信号や画像の低次元表現の枠組み
+Candes \& Donoho\cite{Donoho2006} による信号や画像の低次元表現の枠組み
 \begin{eqnarray}
     \inputSymbol & = & \dictSymbol \sparseSymbol, \;\;
     \dictSymbol \in \rsize{\inputSize \times \inputSize}
@@ -39,24 +39,31 @@ $\mathbf{x}$ が任意の $K$ 疎ベクトルのとき
 
 
 \begin{frame}\frametitle{Compressive Sensing 3/3}
-\begin{block}{主な$L_1$ノルム最適化アルゴリズム}
-\begin{itemize}
-    \item 貪欲法\\
+疎表現の手法(K-SVDなど)と最適化手法(下記) を分けている
+\begin{block}{貪欲法による準最適化}
         Match Pursuit (MP),
         Orthogonal MP (OMP)\footnote{筆者らは OMP を採用 (scikit-learn など多くのライブラリでも標準)}
-
-    \item 凸緩和最適化\\
+\end{block}
+\begin{block}{RIPを満たす主な$L_1$ノルム最適化アルゴリズム}
         Gradient Projection for Sparse Reconstruction (GPSR),\\
         Total Variation (TV),
         Smoothed-$L_0$ (S$L_0$)
-\end{itemize}
+\end{block}
+\begin{block}{他}
+Iterative Reweighted Least Squares (IRLS), 組み合わせ最適化系
 \end{block}
 \end{frame}
 
 
-% \begin{frame}\frametitle{K-SVD の位置づけ}
-% スパース表現の仲間 \cite{Murata2012}
-% \end{frame}
+\begin{frame}\frametitle{行列因子分解としての K-SVD の位置づけ}
+行列因子分解 $\inputSymbol \sim \dictSymbol \sparseSymbol$ の仲間 \cite{Murata2012}
+\begin{itemize}
+  \item $\sparseSymbol$ (係数 : 入力セットと同じ個(列)数でてくる)が疎\\
+    K-SVD, 非負行列因子分解(NMF)\footnote{NMFは全行列の全要素が非負を仮定．高速な解法やギブスサンプリングなどが注目される}
+  \item $\dictSymbol$ (辞書 : 入力の行数 $\times$ 係数の行数) が疎\\
+    主成分分析(PCA), 独立成分分析(ICA), 因子分析(FA)
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}\frametitle{疎表現の問題設定}
@@ -74,13 +81,13 @@ $\mathbf{x}_{n,*}$ を $\sparseSymbol$ の $n$ 行ベクトルとすると
     &=& ||\mathbf{E}_n - \mathbf{d}_{*,n} \mathbf{x}_{n,*}||^2_2 \label{error}
 \end{eqnarray}
 式 (\ref{error}) を最小化する$\mathbf{d}_{*,n}, \mathbf{x}_{n,*}$ は
-最小二乗法問題なので特異値分解(SVD)の解によって得られる
-\footnote{http://www.misojiro.t.u-tokyo.ac.jp/~murota/lect-kisosuri/singularvalue050129.pdf}
+最小二乗法問題なので特異値分解(SVD)の解\footnote{http://www.misojiro.t.u-tokyo.ac.jp/~murota/lect-kisosuri/singularvalue050129.pdf}
+として得るのが K-SVD
 \end{frame}
 
 
 \begin{frame}\frametitle{K-SVD + OMP 更新アルゴリズム}
-更新するのは $\dictSymbol, \sparseSymbol$ の2つ．適当に初期化しておく
+2005年に Aharon らが提案\cite{Aharon2005}．更新するのは $\dictSymbol, \sparseSymbol$ の2つ
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
 \FOR{$n=1$ to $N$}
@@ -96,7 +103,9 @@ $\mathbf{x}_{n,*}$ を $\sparseSymbol$ の $n$ 行ベクトルとすると
 \caption{K-SVD + OMP}
 \label{alg:seq}
 \end{algorithm}
-これを適当な回数反復する．OMPは収束が保証されている
+これを適当な回数反復する．OMPは収束が保証されている．
+
+さらに疎表現が各列一要素のみ 1 で他が 0 になる制約で K-Means と一緒 (K-SVD の前は K-Means を使っていた)
 \end{frame}
 
 
