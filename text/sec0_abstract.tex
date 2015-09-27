@@ -1,13 +1,16 @@
-\section{Abstract}
-\begin{frame}\frametitle{Abstract}
-論文の要点
+\section{Abstract \& Introduction}
+\begin{frame}\frametitle{Abstract \& Introduction}
+要点
 \begin{itemize}
-    \item 動画編集による前景領域の物体消去を検出したい
+    \item 動画編集による前景領域の物体消去を幅広く検出したい
+    \begin{itemize}
+        \item 誰でも市販のソフト(後述)で高品質に改ざんできる
+        \item 簡単な Copy-Paste というレベルではない
+    \end{itemize}
     \item compressive sensing に基づくアルゴリズムを提案
     \begin{enumerate}
-        \item フレーム間の変動を K-SVD (Singular Value Decomposition) により特徴抽出
-        \item K-Means により特徴量を低次元に量子化
-        \item 検出結果を出力
+        \item フレーム間の変動を K-SVD により特徴抽出
+        \item K-Means により 2値(Positive/Negative) に量子化して識別
     \end{enumerate}
     \item 既存手法よりロバストかつ高精度な検出を実現
 \end{itemize}

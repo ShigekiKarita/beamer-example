@@ -31,7 +31,7 @@ $h_a * h_a$ サイズのブロック列化
 
 
 \begin{frame}{Adaptive sparseness}
-差分フレーム $I'$ 中のカメラのノイズなど余分な情報を K-SVD で圧縮
+カメラのノイズなど余分な情報を K-SVD で圧縮
 
 \begin{block}{アルゴリズム}
 \begin{enumerate}
@@ -41,6 +41,18 @@ $h_a * h_a$ サイズのブロック列化
     \item 得られた疎表現 (p. \ref{ksvd} の $X$) を $I_{sparse}$ とする
 \end{enumerate}
 \end{block}
+    \begin{columns}
+        \begin{column}{0.2\textwidth} % 右:40%
+            \includegraphics[height=2cm]{figure/dct.png}
+        \end{column}
+        \begin{column}{0.8\textwidth} % 左:60%
+        \begin{eqnarray}
+            D_{1,j} & = & 1 / \sqrt{N} \\
+            D_{i,j} & = & \sqrt{2/N} \cos{\frac{\pi (2j - 1) (i + 1)}{2 N}}
+        \end{eqnarray}
+        \end{column}
+    \end{columns}
+
 \end{frame}
 
 
@@ -52,7 +64,7 @@ $h_a * h_a$ サイズのブロック列化
 \end{eqnarray}
 ここで $\Theta : M \times N$ は measurement matrix と呼ばれる．
 \begin{block}{measurement matrix}
-$\Theta$ は入力がスパースなら random Gaussian matrix を用いると比較的良い性能が知られる (RIP を調べなくても良い)
+$\Theta$ は入力がスパースなら random Gaussian matrix を用いると比較的良い性能が知られる (RIP を調べなくても良い)\cite{Candes2006}
 \end{block}
 筆者らは$\mathrm{Norm}(0, 1/M)$ を用いた．
 また $M$ は不等式

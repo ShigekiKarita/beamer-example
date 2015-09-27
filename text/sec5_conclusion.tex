@@ -2,13 +2,19 @@
 
 
 \begin{frame}\frametitle{Conclusions}
-\end{frame}
+\begin{block}{結論}
+\begin{itemize}
+    \item 実験によってよりロバストな改ざん検出を確認できた
+    \item ただし，前景領域が小さく速いときに実験結果が良くない
+\end{itemize} 
+\end{block}
 
-
-\begin{frame}\frametitle{感想}
+\begin{block}{感想}
 \begin{itemize}
   \item K-SVDの段階で連続フレームを入力すれば良さそう
   \item K-Means で求まった重心との類似度に閾値をかけて ROC を書いてほしい
   \item K-Means の代わりに教師有りな識別器を使ってみたい
+  \item 論文紹介までに実装が間に合わなかった
 \end{itemize}
+\end{block}
 \end{frame}
