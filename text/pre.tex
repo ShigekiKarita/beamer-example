@@ -12,7 +12,7 @@
     \item K-SVD と K-Means を活用した動画特徴量抽出
     \item クラスタリングを活用した珍しい Video Forgery (VF) 研究
 \end{itemize}
-\includegraphics[scale=0.3]{figure/su.png}
+\includegraphics[scale=0.3]{figure/result2.png}
 \end{frame}
 
 
@@ -29,7 +29,7 @@
     \item Keypoint based feature \\
         変形に頑健な SIFT の Wavelet 低周波成分
     \item Block based feature (改良点) \\
-        内容に敏感な Watson's Visual Model (DCT) の低周波成分
+        内容に敏感な Watson's Visual Model (特殊な DCT) の低周波成分
 \end{itemize}
 \end{frame}
 
@@ -48,16 +48,14 @@
 
 
 \begin{frame}{候補だった論文 3/3}
-\begin{alertblock}{Video Inpainting系}
-[Newson 14]\footfullcite{Newson2014}
-[Granados 12]\footfullcite{Granados2012}
+\begin{alertblock}{Video Inpainting系\footfullcite{Newson2014} \footfullcite{Granados2012}}
 \includegraphics[height=2cm]{figure/granados.png}
 \end{alertblock}
 \begin{itemize}
     \item 映像中のマスク領域指定で人を自然に消す
     \item 彼らのサンプル(元動画 + マスク + 改ざん動画 + ソースコード)
     %\footnote{http://gvv.mpi-inf.mpg.de/projects/vidbginp}
-    %\footnote{http://perso.telecom-paristech.fr/~gousseau/video_inpainting} 
+    %\footnote{http://perso.telecom-paristech.fr/~gousseau/video_inpainting}
     が Video Forgery の実験データセット作成に使えそう
 \end{itemize}
 \end{frame}
@@ -74,7 +72,7 @@
 
 \includegraphics[height=2cm]{figure/ksvd.png}
 
-画像から得られるK-SVD辞書の例\cite{Murata2012}
+画像から得られるK-SVD辞書の例\cite{Murata2012}, CNN みたいでかっこいい
 \end{frame}
 
 

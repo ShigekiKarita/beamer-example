@@ -31,24 +31,45 @@ $h_a * h_a$ サイズのブロック列化
 
 
 \begin{frame}{Adaptive sparseness}
+差分フレーム $I'$ 中のカメラのノイズなど余分な情報を K-SVD で圧縮
+
+\begin{block}{アルゴリズム}
 \begin{enumerate}
+    \item 入力 (p. \ref{ksvd} の $Y$) を $I'$ とする
     \item 辞書 $D$ の DCT 行列による初期化
     \item OMP により $D$ を反復最適化
+    \item 得られた疎表現 (p. \ref{ksvd} の $X$) を $I_{sparse}$ とする
 \end{enumerate}
+\end{block}
 \end{frame}
 
 
 
 \begin{frame}{Random projection}
- 
+疎表現 $I_{sparse}$ をさらに低次元へ圧縮
+\begin{eqnarray}
+    I_{feature} & = & \Theta I_{sparse}
+\end{eqnarray}
+ここで $\Theta : M \times N$ は measurement matrix と呼ばれる．
+\begin{block}{measurement matrix}
+$\Theta$ は入力がスパースなら random Gaussian matrix を用いると比較的良い性能が知られる (RIP を調べなくても良い)
+\end{block}
+筆者らは$\mathrm{Norm}(0, 1/M)$ を用いた．
+また $M$ は不等式
+\begin{equation}
+    M \geq c K \log{N/K}
+\end{equation}
+に基づき経験的に決めた．$K$ は sparseness, $c$ は小さな定数(?!)．
 \end{frame}
 
 
 \begin{frame}{Main working steps}
 \begin{enumerate}
-    \item $I'$ : 現時刻における差分フレームのブロック表現
+    \item $I'$ : 現時刻における差分フレームの $3\times3$ ブロック表現
     \item $I_{sparse}$ : K-SVD による $I'$ の疎表現
-    \item $I_{feature}$ : Gaussian Matrix による射影 $\Theta I_{sparse}$
+    \item $I_{feature}$ : Gaussian Matrix による3次元への圧縮 $\Theta I_{sparse}$
     \item $\Lambda$ : K-Means による$I_{feature}$ の二値化
+    \item $I_{result}$ : 近傍フレームの $\Lambda$ の論理和に Erosion と Dilation
 \end{enumerate}
+以上を 5 フレームおきに処理
 \end{frame}

@@ -8,9 +8,16 @@ style=ieee,
 citestyle=numeric
 ]{biblatex}
 \usepackage{amsmath}
-\addbibresource{ref.bib}
+\addbibresource{text/ref.bib}
 \usetheme{Berlin}
 \usefonttheme{structurebold}
 \setbeamerfont{footnote}{size=\tiny}
 \renewcommand*{\bibfont}{\tiny}
 \setbeamertemplate{bibliography item}[text] 
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
