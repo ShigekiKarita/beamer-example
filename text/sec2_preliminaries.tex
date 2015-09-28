@@ -1,46 +1,49 @@
 \section{Preliminaries}
 
-\begin{frame}\frametitle{Compressive Sensing 1/3}
-Candes \& Donoho\cite{Donoho2006} による信号や画像の低次元表現の枠組み
+\begin{frame}\frametitle{Compressive Sensing}
+Candes \& Donoho\cite{Donoho2006} による信号や画像の低次元表現の枠組み, compressed sensing とも表記
 \begin{eqnarray}
     \inputSymbol & = & \dictSymbol \sparseSymbol, \;\;
     \dictSymbol \in \rsize{\inputSize \times \inputSize}
 \end{eqnarray}
 $\sparseSymbol$ 中で $\sparseness$ 個の係数しか大きな値を取らないとき，
-$\sparseSymbol$ を $\inputSymbol$ の $\sparseness$ 疎表現と呼ぶ．
+$\sparseSymbol$ を入力 $\inputSymbol$ の $\sparseness$ 疎表現と呼ぶ．
 \begin{eqnarray}
     \featureSymbol & = & \rproSymbol \inputSymbol = \sensSymbol \sparseSymbol,
     \rproSymbol \in \rsize{\featureSize \times \inputSize} \\
     \sensSymbol & = & \rproSymbol \dictSymbol
 \end{eqnarray}
 上記の低次元空間への射影 $\sensSymbol$ を sensing matrix と呼ぶ．
+可能な限り $\featureSymbol$ や $\sparseSymbol$ から $\inputSymbol$ を再構築できる $\rproSymbol$ や $\dictSymbol$ を学習するのが目標
 \end{frame}
 
 
-\begin{frame}\frametitle{Compressive Sensing 2/3}
+\begin{frame}\frametitle{Restricted Isometry Property}
 疎表現の導出は $L_0$ ノルム(非零要素数)最適化問題
 \begin{equation}
-    \arg\min_{\sparseSymbol} ||\sparseSymbol||_0 \; s.t. \; \featureSymbol = \sensSymbol \sparseSymbol
+    \arg\min_{\sensSymbol, \sparseSymbol} ||\sparseSymbol||_0 \; s.t. \; \featureSymbol = \sensSymbol \sparseSymbol
 \end{equation}
 なので NP 困難だが，sensing matrix $\sensSymbol$ が
-\begin{block}{Ristricted Isometry Property (RIP)}
+\begin{block}{Restricted Isometry Property (RIP, 制約等長性)}
 $\mathbf{x}$ が任意の $K$ 疎ベクトルのとき
 \begin{eqnarray}
-    (1 - \delta) ||\mathbf{x}||^2_2 \leq & || \sensSymbol \mathbf{x} 
+    (1 - \delta) ||\mathbf{x}||^2_2 \leq & || \sensSymbol \mathbf{x}
     ||^2_2 & \leq (1 + \delta) ||\mathbf{x}||^2_2 \\
     0 < & \delta & < 1
 \end{eqnarray}
 \end{block}
 を満たすとき以下の$L1$ノルム最適化問題に近似できる\cite{Candes2008}．
+\footnote{ラグランジェ緩和すると LASSO\cite{Mairal2014}}
 \begin{equation}
-    \arg\min_{\sparseSymbol}  ||\sparseSymbol||_1 \; s.t. \; \featureSymbol = \sensSymbol \sparseSymbol
+    \arg\min_{\sensSymbol, \sparseSymbol}  ||\sparseSymbol||_1 \; s.t. \; \featureSymbol = \sensSymbol \sparseSymbol
+    \label{candes}
 \end{equation}
 \end{frame}
 
 
-\begin{frame}\frametitle{Compressive Sensing 3/3}
-疎表現の手法(K-SVDなど)と最適化手法(下記) を分けている
-\begin{block}{貪欲法による準最適化}
+\begin{frame}\frametitle{Dictionaly learning}
+疎表現$\sparseSymbol$と射影行列の最適化手法は以下が有名
+\begin{block}{貪欲法による$L_0$ノルム準最適化}
         Match Pursuit (MP),
         Orthogonal MP (OMP)\footnote{筆者らは OMP を採用 (scikit-learn など多くのライブラリでも標準)}
 \end{block}
@@ -55,7 +58,7 @@ Iterative Reweighted Least Squares (IRLS), 組み合わせ最適化系
 \end{frame}
 
 
-\begin{frame}\frametitle{行列因子分解としての K-SVD の位置づけ}
+\begin{frame}\frametitle{Sparse representation}
 行列因子分解 $\inputSymbol \sim \dictSymbol \sparseSymbol$ の仲間 \cite{Murata2012}
 \begin{itemize}
   \item $\sparseSymbol$ (係数 : 入力セットと同じ個(列)数でてくる)が疎\\
@@ -81,7 +84,8 @@ $\mathbf{x}_{n,*}$ を $\sparseSymbol$ の $n$ 行ベクトルとすると
     &=& ||\mathbf{E}_n - \mathbf{d}_{*,n} \mathbf{x}_{n,*}||^2_2 \label{error}
 \end{eqnarray}
 式 (\ref{error}) を最小化する$\mathbf{d}_{*,n}, \mathbf{x}_{n,*}$ は
-最小二乗法問題なので特異値分解(SVD)の解\footnote{http://www.misojiro.t.u-tokyo.ac.jp/~murota/lect-kisosuri/singularvalue050129.pdf}
+最小二乗法問題なので特異値分解(SVD)の解
+\footnote{http://www.misojiro.t.u-tokyo.ac.jp/\~murota/lect-kisosuri/singularvalue050129.pdf}
 として得るのが K-SVD
 \end{frame}
 
@@ -95,7 +99,6 @@ $\mathbf{x}_{n,*}$ を $\sparseSymbol$ の $n$ 行ベクトルとすると
 \STATE $\Omega_n \leftarrow \{ i \in {1, \dots, I} | X_{n, i} \neq 0 \}$
 \STATE $\mathbf{E}_n \leftarrow \{\inputSymbol_i\}_{i \in \Omega_n} - \sum_{i \in \Omega_n \setminus \{n\}} \mathbf{d}_{*,i} \mathbf{x}_{i,*}$
 \STATE $\mathbf{U, S, V} \leftarrow \mathrm{SVD}(\mathbf{E}_n)$ \\
-// 更新
 \STATE $\mathbf{d}_{*,n} \leftarrow \mathbf{u}_{1,*}$
 \STATE $\mathbf{x}_{n,*} \leftarrow s_{1,1} \mathbf{v}_{1,*}$
 \ENDFOR

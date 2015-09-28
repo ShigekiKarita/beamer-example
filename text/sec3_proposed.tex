@@ -61,11 +61,11 @@ $h_a * h_a$ サイズのブロック列化
 \begin{frame}{Random projection}
 疎表現 $I_{sparse}$ をさらに低次元へ圧縮
 \begin{eqnarray}
-    I_{feature} & = & \Theta I_{sparse}
+    I_{feature} & = & \rproSymbol I_{sparse}
 \end{eqnarray}
-ここで $\Theta : M \times N$ は measurement matrix と呼ばれる．
+ここで $\rproSymbol \in \rsize{M \times N}$ は measurement matrix と呼ばれる．
 \begin{block}{measurement matrix}
-$\Theta$ は入力が疎なら random Gaussian matrix を用いると比較的良い性能が知られる (RIP を調べなくても良い)\cite{Candes2006}
+$\rproSymbol$ は入力が疎なら random Gaussian matrix を用いると比較的良い性能が知られる (RIP を調べなくても良い)\cite{Candes2006}
 \end{block}
 筆者らは$\mathrm{Norm}(0, 1/M)$ を用いた．
 また $M$ は不等式
@@ -80,7 +80,7 @@ $\Theta$ は入力が疎なら random Gaussian matrix を用いると比較的�
 \begin{enumerate}
     \item $I'$ : 現時刻における差分フレームの $3\times3$ ブロック表現
     \item $I_{sparse}$ : K-SVD による $I'$ の疎表現
-    \item $I_{feature}$ : Gaussian Matrix による3次元への圧縮 $\Theta I_{sparse}$
+    \item $I_{feature}$ : Gaussian Matrix による3次元への圧縮 $\rproSymbol I_{sparse}$
     \item $\Lambda$ : K-Means による$I_{feature}$ の二値化
     \item $I_{result}$ : 近傍フレームの $\Lambda$ の論理和に Erosion と Dilation
 \end{enumerate}
